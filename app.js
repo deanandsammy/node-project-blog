@@ -7,6 +7,7 @@
 // 加载模块
 let express = require('express')
 let swig = require('swig')
+let mongoose = require('mongoose')
 
 // 创建 app 应用
 let app = express()
@@ -28,4 +29,11 @@ app.use('/', require('./routers/main'))
 
 
 // 监听 http 请求
-app.listen(8080)
+mongoose.connect('mongodb://localhost:27017/local', function (err) {
+    if (err) {
+        console.log('连接失败')
+    } else {
+        console.log('连接成功')
+        app.listen(8080)
+    }
+})
